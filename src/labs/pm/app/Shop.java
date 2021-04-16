@@ -19,6 +19,7 @@ package labs.pm.app;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Locale;
 import labs.pm.data.Drink;
 import labs.pm.data.Food;
@@ -56,7 +57,7 @@ public final class Shop {
          */
         ProductManager pm = new ProductManager(Locale.US);
 
-        Product p2 = pm.createProduct(102, "meat", BigDecimal.valueOf(1.99), Rating.FIVE_STAR);
+        Product p2 = pm.createProduct(102, "meat", BigDecimal.valueOf(2.99), Rating.FIVE_STAR);
 
         //pm.printProductReport(p2);
         p2 = pm.reviewProduct(p2, Rating.FIVE_STAR, "best cup of tea1");
@@ -73,6 +74,8 @@ public final class Shop {
         //pm.printProductReport(p2);
 
         Product p1 = pm.createProduct(101, "tea", BigDecimal.valueOf(1.99));
+        
+        Product p3 = pm.createProduct(103, "camaron", BigDecimal.valueOf(3.50));
 
         //pm.printProductReport(p1);
         p1 = pm.reviewProduct(p1, Rating.FIVE_STAR, "best cup of tea1");
@@ -91,6 +94,18 @@ public final class Shop {
         
         pm.changeLocale("es-GT");
         pm.printProductReport();
+        
+        Comparator<Product> tmpComp = (s1, s2) -> s1.getRating().ordinal() - s2.getRating().ordinal();
+        
+        Comparator<Product> tmpComp2 = (s1,s2)-> s2.getPrice().compareTo(s1.getPrice());
+        
+        pm.printProducts(tmpComp);
+        
+        pm.printProducts((s1,s2)-> s2.getPrice().compareTo(s1.getPrice()));
+        
+        pm.printProducts(tmpComp.thenComparing(tmpComp2));
+        pm.printProducts(tmpComp.thenComparing(tmpComp2).reversed());
+        
         /*
         Product p2 = pm.createProduct(LocalDate.now(),102,"cofee",BigDecimal.valueOf(1.99), Rating.FOUR_STAR);
         Product p3 = pm.createProduct(LocalDate.now(),103,"cake",BigDecimal.valueOf(1.99), Rating.FIVE_STAR);
