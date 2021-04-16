@@ -88,6 +88,8 @@ public final class Shop {
         p1 = pm.reviewProduct(p1, Rating.FIVE_STAR, "best cup of tea7");
         //pm.printProductReport(p1);
 
+        
+        pm.changeLocale("es-GT");
         pm.printProductReport();
         /*
         Product p2 = pm.createProduct(LocalDate.now(),102,"cofee",BigDecimal.valueOf(1.99), Rating.FOUR_STAR);
